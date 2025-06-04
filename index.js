@@ -1,12 +1,33 @@
-const http = require('http');
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World\n');
+const app = express();
+const port = process.env.PORT || 3000;
+
+let lastData = {};
+
+app.use(cors());
+app.use(bodyParser.json());
+
+app.post('/', (req, res) => {
+  lastData = req.body;
+  console.log('Données reçues:', lastData);
+  res.send({ status: 'OK', message: 'Données reçues' });
 });
 
-const port = 3000;
-server.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}/`);
+app.get('/', (req, res) => {
+  res.send(`
+    <html>
+      <head><title>Données ESP32</title></head>
+      <body>
+        <h1>Données reçues</h1>
+        <pre>${JSON.stringify(lastData, null, 2)}</pre>
+      </body>
+    </html>
+  `);
+});
+
+app.listen(port, () => {
+  console.log(`Serveur en écoute sur http://localhost:${port}`);
 });
