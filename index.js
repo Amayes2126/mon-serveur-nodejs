@@ -80,7 +80,7 @@ res.send(`
   </div>
 
   <div class="info">
-    <p><span class="label">Température :</span> ${(lastData.temp || 0).toFixed(1)} °C</p>
+    <p><span class="label">Température :</span> ${(lastData.temperature || 0).toFixed(1)} °C</p>
     <p><span class="label">pH :</span> ${(lastData.ph || 0).toFixed(2)}</p>
     <p><span class="label">Niveau :</span> ${(lastData.niveau || 0).toFixed(1)}%</p>
   </div>
