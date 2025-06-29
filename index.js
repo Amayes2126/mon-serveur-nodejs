@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 app.post('/', (req, res) => {
   lastData = req.body;
   console.log('Données reçues:', lastData);
+  buzzerMuted = false; // Remet à zéro après chaque nouvelle mesure
   res.send({ status: 'OK', message: 'Données reçues' });
 });
 
